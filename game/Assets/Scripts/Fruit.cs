@@ -29,7 +29,7 @@ public class Fruit : MonoBehaviour
 			scale = Mathf.Clamp(scale, 0.1f, 1f);
 			transform.localScale = new Vector3(scale, scale, scale);
 
-			if (elapsedTime >= growthTime && isHarvestable != true)
+			if (elapsedTime >= growthTime)
 			{
 				transform.localScale = Vector3.one;
 				prime (); //Display a small particle, enable ability to harvest

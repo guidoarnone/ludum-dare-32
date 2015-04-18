@@ -1,0 +1,166 @@
+fileFormatVersion: 2
+guid: b2617131ed91a0e48997a3f3bd8b3702
+timeCreated: 1429376211
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Body
+    100002: //RootNode
+    100004: Bunny
+    100006: Cone
+    100008: Eye_L
+    100010: Eye_R
+    100012: Head
+    100014: L_Arm_end
+    100016: L_Arm_mid
+    100018: L_Arm_origin
+    100020: L_Ear_bot
+    100022: L_Ear_IK
+    100024: L_Ear_mid
+    100026: L_Ear_top
+    100028: L_Foot
+    100030: L_Foot_IK
+    100032: L_Hand
+    100034: L_Hand_IK
+    100036: L_Leg_bot
+    100038: L_Leg_mid
+    100040: L_Leg_top
+    100042: Mouth
+    100044: Mouth_bottom
+    100046: Mouth_Left
+    100048: Mouth_Right
+    100050: R_Arm_end
+    100052: R_Arm_mid
+    100054: R_Arm_origin
+    100056: R_Ear_bot
+    100058: R_Ear_IK
+    100060: R_Ear_mid
+    100062: R_Ear_top
+    100064: R_Foot
+    100066: R_Foot_IK
+    100068: R_Hand
+    100070: R_Hand_IK
+    100072: R_Leg_bot
+    100074: R_Leg_mid
+    100076: R_Leg_top
+    100078: Right_eye
+    100080: Root
+    100082: L_Foot_UV
+    100084: L_Leg_UV
+    100086: R_Foot_UV
+    100088: R_Leg_UV
+    100090: Plane
+    400000: Body
+    400002: //RootNode
+    400004: Bunny
+    400006: Cone
+    400008: Eye_L
+    400010: Eye_R
+    400012: Head
+    400014: L_Arm_end
+    400016: L_Arm_mid
+    400018: L_Arm_origin
+    400020: L_Ear_bot
+    400022: L_Ear_IK
+    400024: L_Ear_mid
+    400026: L_Ear_top
+    400028: L_Foot
+    400030: L_Foot_IK
+    400032: L_Hand
+    400034: L_Hand_IK
+    400036: L_Leg_bot
+    400038: L_Leg_mid
+    400040: L_Leg_top
+    400042: Mouth
+    400044: Mouth_bottom
+    400046: Mouth_Left
+    400048: Mouth_Right
+    400050: R_Arm_end
+    400052: R_Arm_mid
+    400054: R_Arm_origin
+    400056: R_Ear_bot
+    400058: R_Ear_IK
+    400060: R_Ear_mid
+    400062: R_Ear_top
+    400064: R_Foot
+    400066: R_Foot_IK
+    400068: R_Hand
+    400070: R_Hand_IK
+    400072: R_Leg_bot
+    400074: R_Leg_mid
+    400076: R_Leg_top
+    400078: Right_eye
+    400080: Root
+    400082: L_Foot_UV
+    400084: L_Leg_UV
+    400086: R_Foot_UV
+    400088: R_Leg_UV
+    400090: Plane
+    2300000: Plane
+    3300000: Plane
+    4300000: Cone
+    4300002: Plane
+    7400000: Default Take
+    7400002: Poses
+    7400004: BunnyAction
+    9500000: //RootNode
+    13700000: Cone
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
