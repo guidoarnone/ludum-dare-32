@@ -4,7 +4,9 @@ using System.Collections;
 public class Fruit : MonoBehaviour 
 {
 
-	private float growthTime;
+	public GameObject particles;
+	public float growthTime;
+
 	private bool isHarvestable;
 	
 	private Animator animator;
@@ -20,17 +22,25 @@ public class Fruit : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		elapsedTime = Time.time - startTime;
-		
-		if (elapsedTime >= growthTime && isHarvestable != true)
+		if (isHarvestable == false)
 		{
-			prime (); //Display a small animation, followed by the ability to harvest
+			elapsedTime = Time.time - startTime;
+			float scale =  elapsedTime / growthTime;	//Set scale, working as the growth animation
+			scale = Mathf.Clamp(scale, 0.1f, 1f);
+			transform.localScale = new Vector3(scale, scale, scale);
+
+			if (elapsedTime >= growthTime && isHarvestable != true)
+			{
+				transform.localScale = Vector3.one;
+				prime (); //Display a small particle, enable ability to harvest
+			}
 		}
 	}
 
-	protected virtual void prime()
+	private void prime()
 	{
-		//isHarvestable = true;
+		Instantiate(particles, transform.position, Quaternion.identity);
+		isHarvestable = true;
 	}
 
 	public void setGrowthTime(float t)
