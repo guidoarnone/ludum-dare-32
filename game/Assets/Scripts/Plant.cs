@@ -8,7 +8,7 @@ public class Plant : MonoBehaviour
 	public	GameObject[] possibleFruits;	//Positions to place fruit in
 	public	Transform[] fruitPosition;	//Positions to place fruit in
 
-	private GameObject[] fruit;	//Actual array of the fruit
+	public GameObject[] fruit;	//Actual array of the fruit
 	private int	activeFruit;
 	private bool isProducing;	//Is it currently producing fruit
 
@@ -54,19 +54,14 @@ public class Plant : MonoBehaviour
 		isProducing = true;
 
 		//Start fruit producing routine
-		Invoke("spawnFruit", 5f);
+		Invoke("spawnFruits", 5f);
 	}
 
-	private void spawnFruit()
+	private void spawnFruits()
 	{
 		for (int i = 0; i < activeFruit; i++)
 		{
-			if(fruit[i] == null)
-			{
-				GameObject tempFruit = (GameObject)Instantiate(getFruit(), fruitPosition[i].position, Quaternion.identity);
-				tempFruit.transform.SetParent(fruitPosition[i]);
-				fruit[i] = tempFruit;
-			}
+			StartCoroutine(spawnFruit(i));
 		}
 	}
 
@@ -85,4 +80,36 @@ public class Plant : MonoBehaviour
 	{
 		return type;
 	}
+
+	IEnumerator spawnFruit(int fruitIndex)
+	{
+		yield return new WaitForSeconds(Random.Range(1f, 5f));
+		if (fruit [fruitIndex] == null) 
+		{
+			GameObject tempFruit = (GameObject)Instantiate(getFruit(), fruitPosition[fruitIndex].position, Quaternion.identity);
+			tempFruit.transform.SetParent(fruitPosition[fruitIndex]);
+			tempFruit.GetComponent<Fruit>().setParentPlant(gameObject);
+			fruit[fruitIndex] = tempFruit;
+		}
+
+	}
+
+	public void harvested(GameObject harvestedFruit)
+	{
+		int index = 0;
+		bool done = false;
+		while (index < fruit.Length && !done) 
+		{
+			//we need explicitly the same referenced object in memory,
+			//not a logically equal one.
+			if( harvestedFruit.Equals(fruit[index]) )
+			{
+				StartCoroutine(spawnFruit(index));
+				done = true;
+			}
+			index++;
+		}
+
+	}
+
 }

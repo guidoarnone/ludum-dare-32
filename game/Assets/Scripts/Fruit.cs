@@ -4,6 +4,7 @@ using System.Collections;
 public class Fruit : MonoBehaviour 
 {
 
+	public GameObject parentPlant;
 	public GameObject particles;
 	public float growthTime;
 
@@ -47,4 +48,16 @@ public class Fruit : MonoBehaviour
 	{
 		growthTime = t;
 	}
+
+	public void setParentPlant(GameObject g)
+	{
+		parentPlant = g;
+	}
+
+	public void harvested()
+	{
+		parentPlant.GetComponent<Plant>().harvested(gameObject);
+		Destroy (this.gameObject);
+	}
+
 }
