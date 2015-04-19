@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemyTest : MonoBehaviour {
 
 	public GameObject body;
+	public float healthPoints;
 
 	Animator animator;
 	bool isAlive;
@@ -11,6 +12,7 @@ public class EnemyTest : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		healthPoints = 100f;
 		isAlive = true;
 		animator = GetComponent<Animator>();
 	}
@@ -30,10 +32,49 @@ public class EnemyTest : MonoBehaviour {
 	{
 		if (c.tag.Substring(0,6) == "attack")
 		{
-			transform.LookAt(new Vector3(c.transform.position.x, 0, c.transform.position.z));
-			isAlive = false;
-			animator.SetTrigger("death");
+			healthPoints -= weaponDamage(c.tag);
 		}
+		if(healthPoints <= 0f)
+		{
+			agonize(c);
+		}
+	}
+
+	private void agonize(Collider c)
+	{
+		
+		transform.LookAt(new Vector3(c.transform.position.x, 0, c.transform.position.z));
+		isAlive = false;
+		animator.SetTrigger("death");
+		animator.SetInteger("type", weaponId(c.tag));
+	}
+	          
+	private float weaponDamage(string tag)
+	{
+		switch (tag) 
+		{
+		case "attack_coconut":
+			return 100;
+		case "attack_banana":
+			return 25;
+		case "attack_grapes":
+			return 20;
+		}
+		return 0;
+	}
+
+	private int weaponId(string tag)
+	{
+		switch (tag) 
+		{
+			case "attack_coconut":
+				return 0;
+			case "attack_banana":
+				return 1;
+			case "attack_grapes":
+				return 2;
+		}
+		return -1;
 	}
 
 	public void death()
