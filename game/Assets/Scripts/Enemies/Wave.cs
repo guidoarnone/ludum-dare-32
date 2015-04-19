@@ -27,7 +27,7 @@ public class Wave : MonoBehaviour {
 	private IEnumerator sendEnemy() {
 
 		GameObject enemy = (GameObject) enemyQueue.Dequeue ();
-		Instantiate (enemy, transform.position, Quaternion.identity);
+		Instantiate (enemy, transform.parent.transform.position, Quaternion.identity);
 
 		yield return new WaitForSeconds(spawnInterval);
 
