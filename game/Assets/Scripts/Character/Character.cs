@@ -134,11 +134,8 @@ public class Character : MonoBehaviour
 			{
 				int a = F.GetComponent<Fruit>().pickedUp();
 
-				Debug.Log("test");
-
 				if (a != -1)
 				{
-					Debug.Log("amm +1");
 					ammunition[a]++;
 				}
 			}

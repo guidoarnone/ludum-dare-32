@@ -105,4 +105,9 @@ public class Fruit : MonoBehaviour
 			return -1;
 		}
 	}
+
+	public bool pickUpStatus()
+	{
+		return canPickUp;
+	}
 }
