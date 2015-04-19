@@ -194,7 +194,7 @@ public class Character : MonoBehaviour
 	{
 		Camera.main.GetComponent<CameraScript>().shake(harvestRadius);
 		GameObject wave = (GameObject)Instantiate(shockwave, transform.position, Quaternion.identity);
-		wave.transform.localScale = new Vector3(harvestRadius / 10, 1, harvestRadius / 10);
+		wave.transform.localScale = new Vector3(harvestRadius / 15, 1, harvestRadius / 15);
 		wave.GetComponent<Animator>().speed = 10 / harvestRadius;
 
 		harvestFruitInArea(harvestRadius);
@@ -209,7 +209,7 @@ public class Character : MonoBehaviour
 			if (Vector3.Distance(transform.position, P.transform.position) <= r)
 			{
 				Plant plantScript = P.GetComponent<Plant>();
-				plantScript.harvest();
+				plantScript.initiateHarvest(transform.position);
 			}
 		}
 	}

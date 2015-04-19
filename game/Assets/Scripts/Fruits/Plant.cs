@@ -94,7 +94,13 @@ public class Plant : MonoBehaviour
 
 	}
 
-	public void harvest()
+	public void initiateHarvest(Vector3 p)
+	{
+		float t = Vector3.Distance(transform.position, p) / 10f;
+		Invoke("harvest", t);
+	}
+
+	void harvest()
 	{
 		int tH = Random.Range (0, activeFruit) + activeFruit / 2;
 		int h = 0;
