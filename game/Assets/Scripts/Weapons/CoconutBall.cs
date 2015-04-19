@@ -13,8 +13,7 @@ public class CoconutBall : MonoBehaviour
 	{
 		radius = 0.25f;
 	}
-
-	// Update is called once per frame
+	
 	void Update () 
 	{
 		if (radius < maxRadius)

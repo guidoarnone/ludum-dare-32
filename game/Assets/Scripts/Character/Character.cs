@@ -36,6 +36,7 @@ public class Character : MonoBehaviour
 
 		//Test
 		ammunition[0] = 5;
+		ammunition [1] = 5;
 		weaponID = 0;
 		GUIVisual.updateWeapon(0);
 		GUIVisual.updateAmmo(ammunition[weaponID]);
@@ -169,22 +170,10 @@ public class Character : MonoBehaviour
 				break;
 
 			case(1):
-				
+				projectile.GetComponent<BananaBoomerang>().setDirection(transform.forward);
 				break;
 
 			case(2):
-				
-				break;
-
-			case(3):
-				
-				break;
-
-			case(4):
-				
-				break;
-
-			case(5):
 				
 				break;
 		}

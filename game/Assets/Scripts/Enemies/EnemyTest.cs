@@ -30,7 +30,7 @@ public class EnemyTest : MonoBehaviour {
 
 	void OnTriggerEnter(Collider c)
 	{
-		if (c.tag == "attack")
+		if (c.tag.Substring(0,6) == "attack")
 		{
 			transform.LookAt(new Vector3(c.transform.position.x, 0, c.transform.position.z));
 			isAlive = false;
