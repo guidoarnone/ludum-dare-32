@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
 
 	public GameObject[] weapons;
 
+	private bool canAttack;
 	private int weaponID = 0;
 	private int[] ammunition;
 	private bool isAbleToMove = true;
@@ -22,6 +23,7 @@ public class Character : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		canAttack = true;
 		animator = gameObject.GetComponent<Animator>();
 		ammunition = new int[maxWeapons];
 
@@ -38,6 +40,7 @@ public class Character : MonoBehaviour
 			{
 				Debug.Log("free");
 				isAbleToMove = true;
+				canAttack = true;
 			}
 		}
 
@@ -82,16 +85,13 @@ public class Character : MonoBehaviour
 	private void getInput()
 	{
 		//Attack detection
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && canAttack == true)
 		{
 			//If you have that type of ammunition
 			if (hasEnoughAmmunition())
 			{
-				Vector3 target = getMouseInWorld();
-				transform.LookAt(target);
 				animator.SetTrigger("attack");
-				ammunition[weaponID]--;
-				attack();
+				canAttack = false;
 			}
 		}
 
@@ -123,58 +123,34 @@ public class Character : MonoBehaviour
 	{
 
 		GameObject projectile = (GameObject)Instantiate(weapons[weaponID], weaponHand.transform.position, Quaternion.identity);
+		ammunition[weaponID]--;
 
 		switch(weaponID)
 		{
 			case(0):
-			{
-			projectile.GetComponent<CoconutBall>().setDirection(transform.forward);
-			break;
-			}
+				projectile.GetComponent<CoconutBall>().setDirection(transform.forward);
+				break;
 
 			case(1):
-			{
 				
 				break;
-			}
 
 			case(2):
-			{
 				
 				break;
-			}
 
 			case(3):
-			{
 				
 				break;
-			}
 
 			case(4):
-			{
 				
 				break;
-			}
 
 			case(5):
-			{
 				
 				break;
-			}
 		}
-	}
-
-	private Vector3 getMouseInWorld()
-	{
-		RaycastHit point;
-		Ray Dir = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-		int layer = 8;
-		int layermask = 1 << layer;
-
-		Physics.Raycast(Dir, out point, 100f, layermask);
-
-		return point.point;
 	}
 
 	private bool hasEnoughAmmunition()
@@ -185,5 +161,10 @@ public class Character : MonoBehaviour
 		}
 
 		return false;
+	}
+
+	public void test()
+	{
+		Debug.Log("heyo");
 	}
 }

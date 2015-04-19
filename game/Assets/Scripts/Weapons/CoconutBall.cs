@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CoconutBall : MonoBehaviour {
+public class CoconutBall : MonoBehaviour
+{
 
 	public float speed;
+	public float maxRadius;
 	private Vector3 direction;
 	private float radius;
 
@@ -15,7 +17,7 @@ public class CoconutBall : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (radius < 1f)
+		if (radius < maxRadius)
 		{
 			radius += 0.01f;
 		}
@@ -24,11 +26,13 @@ public class CoconutBall : MonoBehaviour {
 
 		Vector3 pos = transform.position;
 		transform.position = new Vector3 (pos.x, radius, pos.z);
-		transform.Translate(direction * speed * Time.deltaTime);
+		transform.Translate(direction * speed * Time.deltaTime, Space.World);
+		transform.Rotate(transform.right, Mathf.Pow(speed, 2.5f) / radius * Time.deltaTime, Space.World);
 	}
 
 	public void setDirection(Vector3 d)
 	{
 		direction = d;
+		transform.LookAt(transform.position + d);
 	}
 }
