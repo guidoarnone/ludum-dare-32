@@ -7,6 +7,7 @@ public class Character : MonoBehaviour
 	public GameObject weaponHand;
 
 	public float harvestRadius;
+	public float pickUpRadius;
 	public float speed;
 	public float deadZone;
 	public int maxWeapons;
@@ -58,6 +59,8 @@ public class Character : MonoBehaviour
 			transform.LookAt(transform.position + move);
 			CC.Move(move * Time.deltaTime * speed);
 		}
+
+		pickUps();
 
 		getInput();
 	}
@@ -121,6 +124,27 @@ public class Character : MonoBehaviour
 		}
 	}
 
+	private void pickUps()
+	{
+		GameObject[] fruitList = GameObject.FindGameObjectsWithTag("fruit");
+
+		foreach (GameObject F in fruitList)
+		{
+			if (Vector3.Distance(transform.position, F.transform.position) <= pickUpRadius)
+			{
+				int a = F.GetComponent<Fruit>().pickedUp();
+
+				Debug.Log("test");
+
+				if (a != -1)
+				{
+					Debug.Log("amm +1");
+					ammunition[a]++;
+				}
+			}
+		}
+	}
+
 	private void attack()
 	{
 
@@ -161,6 +185,22 @@ public class Character : MonoBehaviour
 		GameObject wave = (GameObject)Instantiate(shockwave, transform.position, Quaternion.identity);
 		wave.transform.localScale = new Vector3(harvestRadius / 10, 1, harvestRadius / 10);
 		wave.GetComponent<Animator>().speed = 10 / harvestRadius;
+
+		harvestFruitInArea(harvestRadius);
+	}
+
+	private void harvestFruitInArea(float r)
+	{
+		GameObject[] plantList = GameObject.FindGameObjectsWithTag("plant");
+
+		foreach (GameObject P in plantList)
+		{
+			if (Vector3.Distance(transform.position, P.transform.position) <= r)
+			{
+				Plant plantScript = P.GetComponent<Plant>();
+				plantScript.harvest();
+			}
+		}
 	}
 
 	private bool hasEnoughAmmunition()

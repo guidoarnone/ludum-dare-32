@@ -83,7 +83,7 @@ public class Plant : MonoBehaviour
 
 	IEnumerator spawnFruit(int fruitIndex)
 	{
-		yield return new WaitForSeconds(Random.Range(1f, 5f));
+		yield return new WaitForSeconds(Random.Range(growthTime / 2, growthTime * 2));
 		if (fruit [fruitIndex] == null) 
 		{
 			GameObject tempFruit = (GameObject)Instantiate(getFruit(), fruitPosition[fruitIndex].position, Quaternion.identity);
@@ -94,16 +94,33 @@ public class Plant : MonoBehaviour
 
 	}
 
-	public void harvested(GameObject harvestedFruit)
+	public void harvest()
+	{
+		int tH = Random.Range (0, activeFruit) + 1;
+		int h = 0;
+
+		for (int i = 0; i < fruit.Length && h < tH; i++)
+		{
+			if (fruit[i] != null)
+			{
+				fruit[i].GetComponent<Fruit>().fall();
+				h++;
+			}
+		}
+	}
+
+	public void fruitPicked(GameObject harvestedFruit)
 	{
 		int index = 0;
 		bool done = false;
+
 		while (index < fruit.Length && !done) 
 		{
 			//we need explicitly the same referenced object in memory,
 			//not a logically equal one.
 			if( harvestedFruit.Equals(fruit[index]) )
 			{
+				fruit[index] = null;
 				StartCoroutine(spawnFruit(index));
 				done = true;
 			}

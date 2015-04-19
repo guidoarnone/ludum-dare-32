@@ -46,15 +46,15 @@ public class CameraScript : MonoBehaviour {
 
 	IEnumerator continueShaking(float i)
 	{
-		if (i > 0.5f)
+		if (i > 0.1f)
 		{
 			i *= shakeFactor;
 			shakeVector = new Vector3(Random.Range(-i / 10, i / 10), Random.Range(-i / 10, i / 10), Random.Range(-i / 10, i / 10));
 
-			yield return new WaitForSeconds(i / 100);
+			yield return new WaitForSeconds(Time.deltaTime);
 			StartCoroutine(continueShaking(i));
 		}
 
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(Time.deltaTime);
 	}
 }

@@ -3,13 +3,19 @@ using System.Collections;
 
 public class Fruit : MonoBehaviour 
 {
+	public int fruitAmmunitionType;
+	public float radius;
+	public float fallSpeed;
 
 	public GameObject parentPlant;
 	public GameObject particles;
 	public float growthTime;
 
 	private bool isHarvestable;
-	
+	private bool canPickUp;
+
+	private float speed;
+
 	private Animator animator;
 	private float startTime;
 	private float elapsedTime;
@@ -18,6 +24,9 @@ public class Fruit : MonoBehaviour
 	{
 		startTime = Time.time;
 		animator = transform.GetComponent<Animator>();
+
+		canPickUp = false;
+		isHarvestable = false;
 	}
 	
 	// Update is called once per frame
@@ -54,10 +63,46 @@ public class Fruit : MonoBehaviour
 		parentPlant = g;
 	}
 
-	public void harvested()
+	public void fall()
 	{
-		parentPlant.GetComponent<Plant>().harvested(gameObject);
-		Destroy (this.gameObject);
+		if (isHarvestable)
+		{
+			speed = fallSpeed;
+			StartCoroutine(fallCo());
+		}
 	}
 
+	IEnumerator fallCo()
+	{
+		speed += fallSpeed;
+
+		if (transform.position.y < 0 + radius)
+		{
+			Vector3 p = transform.position;
+			transform.position = new Vector3(p.x, 0 + radius, p.z);
+			canPickUp = true;
+			yield return new WaitForSeconds(Time.deltaTime);
+		}
+		else
+		{
+			transform.Translate(0, -speed * Time.deltaTime, 0);
+			yield return new WaitForSeconds(Time.deltaTime);
+			StartCoroutine(fallCo());
+		}
+
+	}
+
+	public int pickedUp()
+	{
+		if (canPickUp)
+		{
+			parentPlant.GetComponent<Plant>().fruitPicked(gameObject);
+			Destroy(gameObject);
+			return fruitAmmunitionType;
+		}
+		else
+		{
+			return -1;
+		}
+	}
 }
