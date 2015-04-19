@@ -3,6 +3,8 @@ using System.Collections;
 
 public class EnemyTest : MonoBehaviour {
 
+	public GameObject body;
+
 	Animator animator;
 	bool isAlive;
 
@@ -38,7 +40,21 @@ public class EnemyTest : MonoBehaviour {
 
 	public void death()
 	{
-		//Particles or smth
-		Destroy(gameObject);
+		StartCoroutine(flicker(0.25f));
+	}
+
+	private IEnumerator flicker(float i)
+	{
+		if (i < 0.1f)
+		{
+			Destroy(gameObject);
+		}
+
+		else
+		{
+			yield return new WaitForSeconds(i);
+			body.GetComponent<SkinnedMeshRenderer>().enabled = !body.GetComponent<SkinnedMeshRenderer>().enabled;
+			StartCoroutine(flicker(i * 0.95f));
+		}
 	}
 }
