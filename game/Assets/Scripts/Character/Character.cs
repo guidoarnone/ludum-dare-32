@@ -6,6 +6,8 @@ public class Character : MonoBehaviour
 	public GameObject shockwave;
 	public GameObject weaponHand;
 
+	public GUIManager GUIVisual;
+
 	public float harvestRadius;
 	public float pickUpRadius;
 	public float speed;
@@ -16,7 +18,7 @@ public class Character : MonoBehaviour
 	
 	private CharacterController CC;
 	private bool canAttack;
-	private int weaponID = 0;
+	private int weaponID;
 	private int[] ammunition;
 	private bool isAbleToMove = true;
 
@@ -34,6 +36,9 @@ public class Character : MonoBehaviour
 
 		//Test
 		ammunition[0] = 5;
+		weaponID = 0;
+		GUIVisual.updateWeapon(0);
+		GUIVisual.updateAmmo(ammunition[weaponID]);
 	}
 
 	// Update is called once per frame
@@ -108,6 +113,7 @@ public class Character : MonoBehaviour
 			canAttack = false;
 		}
 
+		int w = weaponID;
 
 		//Weapon selection
 		if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -122,21 +128,28 @@ public class Character : MonoBehaviour
 		{
 			weaponID = 2;
 		}
+
+		if (w != weaponID)
+		{
+			GUIVisual.updateWeapon(weaponID);
+			GUIVisual.updateAmmo(ammunition[weaponID]);
+		}
 	}
 
 	private void pickUps()
 	{
-		GameObject[] fruitList = GameObject.FindGameObjectsWithTag("fruit");
-
-		foreach (GameObject F in fruitList)
+		GameObject[] fruitLists = GameObject.FindGameObjectsWithTag("fruit");
+		foreach (GameObject F in fruitLists)
 		{
 			if (Vector3.Distance(transform.position, F.transform.position) <= pickUpRadius)
 			{
+
 				int a = F.GetComponent<Fruit>().pickedUp();
 
 				if (a != -1)
 				{
 					ammunition[a]++;
+					GUIVisual.updateAmmo(ammunition[weaponID]);
 				}
 			}
 		}
@@ -147,6 +160,7 @@ public class Character : MonoBehaviour
 
 		GameObject projectile = (GameObject)Instantiate(weapons[weaponID], weaponHand.transform.position, Quaternion.identity);
 		ammunition[weaponID]--;
+		GUIVisual.updateAmmo(ammunition[weaponID]);
 
 		switch(weaponID)
 		{

@@ -15,15 +15,14 @@ public class Fruit : MonoBehaviour
 	private bool canPickUp;
 
 	private float speed;
-
-	private Animator animator;
+	
 	private float startTime;
 	private float elapsedTime;
+
 	// Use this for initialization
 	void Start () 
 	{
 		startTime = Time.time;
-		animator = transform.GetComponent<Animator>();
 
 		canPickUp = false;
 		isHarvestable = false;

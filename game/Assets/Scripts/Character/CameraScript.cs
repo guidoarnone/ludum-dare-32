@@ -4,6 +4,7 @@ using System.Collections;
 public class CameraScript : MonoBehaviour {
 
 	public Transform target;
+	public Camera guiCamera;
 
 	public 	float min;
 	public 	float max;
@@ -37,6 +38,11 @@ public class CameraScript : MonoBehaviour {
 		desiredSize = Mathf.Clamp(desiredSize, min, max);
 
 		Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, desiredSize, 1 / smoothFactor);
+	}
+
+	void OnGUI()
+	{
+		guiCamera.Render();
 	}
 
 	public void shake(float i)

@@ -97,8 +97,6 @@ public class Plant : MonoBehaviour
 	public void harvest()
 	{
 		int tH = Random.Range (0, activeFruit) + activeFruit / 2;
-		Debug.Log(tH);
-
 		int h = 0;
 
 		for (int i = 0; i < fruit.Length && h < tH; i++)
