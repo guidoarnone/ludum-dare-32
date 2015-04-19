@@ -3,14 +3,17 @@ using System.Collections;
 
 public class Character : MonoBehaviour 
 {
+	public GameObject shockwave;
 	public GameObject weaponHand;
 
+	public float harvestRadius;
 	public float speed;
 	public float deadZone;
 	public int maxWeapons;
 
 	public GameObject[] weapons;
-
+	
+	private CharacterController CC;
 	private bool canAttack;
 	private int weaponID = 0;
 	private int[] ammunition;
@@ -23,6 +26,7 @@ public class Character : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		CC = transform.GetComponent<CharacterController>();
 		canAttack = true;
 		animator = gameObject.GetComponent<Animator>();
 		ammunition = new int[maxWeapons];
@@ -38,7 +42,6 @@ public class Character : MonoBehaviour
 		{
 			if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
 			{
-				Debug.Log("free");
 				isAbleToMove = true;
 				canAttack = true;
 			}
@@ -53,7 +56,7 @@ public class Character : MonoBehaviour
 			getMovement();
 
 			transform.LookAt(transform.position + move);
-			transform.Translate(move * Time.deltaTime * speed, Space.World);
+			CC.Move(move * Time.deltaTime * speed);
 		}
 
 		getInput();
@@ -95,27 +98,26 @@ public class Character : MonoBehaviour
 			}
 		}
 
-		//Weapon selection
-		float mousewheel = Input.GetAxis("Mouse ScrollWheel");
-
-		if (Mathf.Abs(mousewheel) < deadZone)
+		//harvest
+		if (Input.GetKeyDown(KeyCode.Space) && canAttack == true)
 		{
-			mousewheel = 0;
+			animator.SetTrigger("harvest");
+			canAttack = false;
 		}
 
-		if (mousewheel != 0)
+
+		//Weapon selection
+		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
-			if (mousewheel > 0)
-			{
-				weaponID++;
-			}
-
-			else
-			{
-				weaponID--;
-			}
-
-			weaponID = Mathf.Clamp(weaponID, 0, maxWeapons);
+			weaponID = 0;
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha2))
+		{
+			weaponID = 1;
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			weaponID = 2;
 		}
 	}
 
@@ -151,6 +153,14 @@ public class Character : MonoBehaviour
 				
 				break;
 		}
+	}
+
+	public void harvestEffect()
+	{
+		Camera.main.GetComponent<CameraScript>().shake(harvestRadius);
+		GameObject wave = (GameObject)Instantiate(shockwave, transform.position, Quaternion.identity);
+		wave.transform.localScale = new Vector3(harvestRadius / 10, 1, harvestRadius / 10);
+		wave.GetComponent<Animator>().speed = 10 / harvestRadius;
 	}
 
 	private bool hasEnoughAmmunition()
