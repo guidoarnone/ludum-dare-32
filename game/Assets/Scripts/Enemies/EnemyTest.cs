@@ -18,8 +18,6 @@ public class EnemyTest : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-
-
 		if (isAlive)
 		{
 			Vector3 moveVector = new Vector3(0, 0, -2 * Time.deltaTime);
