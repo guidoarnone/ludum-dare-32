@@ -37,6 +37,7 @@ public class Character : MonoBehaviour
 		//Test
 		ammunition[0] = 5;
 		ammunition [1] = 5;
+		ammunition [2] = 5;
 		weaponID = 0;
 		GUIVisual.updateWeapon(0);
 		GUIVisual.updateAmmo(ammunition[weaponID]);
@@ -174,7 +175,7 @@ public class Character : MonoBehaviour
 				break;
 
 			case(2):
-				
+				projectile.GetComponent<GrapeBullet>().setDirection(transform.forward);
 				break;
 		}
 	}
