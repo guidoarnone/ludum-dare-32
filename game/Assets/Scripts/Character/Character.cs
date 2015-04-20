@@ -169,7 +169,15 @@ public class Character : MonoBehaviour
 
 				if (a != -1)
 				{
-					ammunition[a]++;
+					if (a == 2)
+					{
+						ammunition[a] += 5;
+					}
+					else
+					{
+						ammunition[a]++;
+					}
+
 					GUIVisual.updateAmmo(ammunition[weaponID]);
 				}
 			}

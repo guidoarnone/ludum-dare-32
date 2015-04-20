@@ -11,7 +11,7 @@ public class BananaBoomerang : MonoBehaviour {
 	public Vector3 origin;
 	public Vector3 turningPoint;
 
-	public GameObject particleEmitter;
+	public GameObject particles;
 
 	private enum Segment {forwards, backwards, done};
 	private Segment currentSegment;
@@ -82,7 +82,7 @@ public class BananaBoomerang : MonoBehaviour {
 
 	private void burial()
 	{
-		Instantiate(particleEmitter, transform.position, Quaternion.identity);
+		Instantiate(particles, transform.position, Quaternion.identity);
 	}
 
 }

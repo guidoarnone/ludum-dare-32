@@ -4,14 +4,7 @@ using System.Collections;
 public class Bouncy : MonoBehaviour 
 {
 	public float offset;
-
-	private Vector3 startPosition;
-
-	void Start()
-	{
-		startPosition = transform.position;
-	}
-
+	
 	// Update is called once per frame
 	void Update () 
 	{

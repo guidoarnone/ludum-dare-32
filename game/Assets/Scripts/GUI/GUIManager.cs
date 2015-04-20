@@ -18,6 +18,8 @@ public class GUIManager : MonoBehaviour {
 
 	public void updateAmmo(int i)
 	{
+		i = Mathf.Clamp(i, 0, 999);
+
 		int u = i % 10;
 		int t = (i / 10) % 10;
 		int h = i / 100;

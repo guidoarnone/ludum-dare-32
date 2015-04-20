@@ -37,7 +37,6 @@ public class EnemyTest : MonoBehaviour {
 			if(c.tag == "attack_grape")
 			{
 				c.gameObject.GetComponent<GrapeBullet>().disappear();
-				Debug.Log("die");
 			}
 		}
 
@@ -49,9 +48,9 @@ public class EnemyTest : MonoBehaviour {
 
 	private void agonize(Collider c)
 	{
-		
 		transform.LookAt(new Vector3(c.transform.position.x, 0, c.transform.position.z));
 		isAlive = false;
+		gameObject.layer = 2;
 		animator.SetTrigger("death");
 		animator.SetInteger("type", weaponId(c.tag));
 	}

@@ -1,31 +1,29 @@
 fileFormatVersion: 2
-guid: c2ffc42c5a8096444a068187d581ab64
-timeCreated: 1429479218
+guid: 0611033c9680d144e8638072ada1c3e2
+timeCreated: 1429494162
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Armature
-    100004: Base
-    100006: Circle_004
+    100000: Armature
+    100002: Base
+    100004: BezierCurve
+    100006: //RootNode
     100008: Leaf_Big
     100010: Leaf_Small
     100012: Root
-    400000: //RootNode
-    400002: Armature
-    400004: Base
-    400006: Circle_004
+    400000: Armature
+    400002: Base
+    400004: BezierCurve
+    400006: //RootNode
     400008: Leaf_Big
     400010: Leaf_Small
     400012: Root
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Circle_004
+    4300000: BezierCurve
     7400000: Default Take
     7400002: ArmatureAction
     9500000: //RootNode
-    13700000: Circle_004
+    13700000: BezierCurve
   materials:
     importMaterials: 0
     materialName: 0
