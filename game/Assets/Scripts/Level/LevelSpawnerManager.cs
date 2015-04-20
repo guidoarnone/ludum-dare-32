@@ -8,9 +8,9 @@ public class LevelSpawnerManager : MonoBehaviour {
 	
 
 	// Update is called once per frame
-	void Update () {
-
-		Debug.Log (spawnersFinished () + " " + anyEnemiesAlive());
+	void Update () 
+	{
+		
 		if (spawnersFinished() && !anyEnemiesAlive()) 
 		{
 			endLevel();

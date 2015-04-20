@@ -10,6 +10,7 @@ public class BananaBoomerang : MonoBehaviour {
 	private Vector3 direction;
 	public Vector3 origin;
 	public Vector3 turningPoint;
+	public Vector3 destination;
 
 	public GameObject particles;
 
@@ -21,6 +22,7 @@ public class BananaBoomerang : MonoBehaviour {
 		currentSegment = Segment.forwards;
 		origin = transform.position;
 		turningPoint = origin + direction * range;
+		destination = origin -direction * range;
 		transform.LookAt (transform.position + Vector3.down);  
 	}
 
@@ -44,7 +46,7 @@ public class BananaBoomerang : MonoBehaviour {
 		{
 			currentSegment = Segment.backwards;
 		}
-		else if(currentSegment.Equals(Segment.backwards) && isNearOrigin())
+		else if(currentSegment.Equals(Segment.backwards) && isNearDestination())
 		{
 			currentSegment = Segment.done;
 		}
@@ -58,6 +60,11 @@ public class BananaBoomerang : MonoBehaviour {
 	private bool isNearOrigin()
 	{
 		return (Vector3.Distance (transform.position, origin) < distanceThreshold);
+	}
+
+	private bool isNearDestination()
+	{
+		return (Vector3.Distance (transform.position, destination) < distanceThreshold);
 	}
 
 	public void setDirection(Vector3 d)

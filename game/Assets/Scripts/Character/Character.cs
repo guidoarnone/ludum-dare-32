@@ -21,7 +21,6 @@ public class Character : MonoBehaviour
 	private CharacterController CC;
 	private bool canAttack;
 	private bool canSwap;
-	private bool delay;
 	private int weaponID;
 	private int[] ammunition;
 	private bool isAbleToMove;
@@ -54,7 +53,7 @@ public class Character : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if (!isAbleToMove && !delay)
+		if (!isAbleToMove)
 		{
 			if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
 			{
@@ -63,7 +62,7 @@ public class Character : MonoBehaviour
 			}
 		}
 
-		else if (!canAttack && !delay)
+		else if (!canAttack)
 		{
 			if (!animator.GetCurrentAnimatorStateInfo(1).IsTag("Attack"))
 			{
@@ -114,15 +113,24 @@ public class Character : MonoBehaviour
 	private void getInput()
 	{
 		//Attack detection
-		if (Input.GetMouseButtonDown(0) && canAttack && isAbleToMove && canSwap)
+		if (Input.GetMouseButtonDown(0) && canAttack && isAbleToMove && weaponID != 2)
 		{
-			//If you have that type of ammunition
+				//If you have that type of ammunition
+				if (hasEnoughAmmunition())
+				{
+					animator.SetTrigger("attack");
+					if (weaponID == 0)
+					{
+						canAttack = false;
+					}
+				}
+		}
+
+		else if (Input.GetMouseButton(0) && canAttack && isAbleToMove && weaponID == 2)
+		{
 			if (hasEnoughAmmunition())
 			{
 				animator.SetTrigger("attack");
-				delay = true;
-				Invoke("delayFinish", gracePeriod);
-				canAttack = false;
 			}
 		}
 
@@ -133,24 +141,26 @@ public class Character : MonoBehaviour
 			canAttack = false;
 		}
 
+		int nw = weaponID;
 		int w = weaponID;
 
 		//Weapon selection
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
-			weaponID = 0;
+			nw = 0;
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha2))
 		{
-			weaponID = 1;
+			nw = 1;
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha3))
 		{
-			weaponID = 2;
+			nw = 2;
 		}
 
-		if (w != weaponID)
+		if (w != nw && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !animator.GetCurrentAnimatorStateInfo(1).IsTag("Attack"))
 		{
+			weaponID = nw;
 			GUIVisual.updateWeapon(weaponID);
 			GUIVisual.updateAmmo(ammunition[weaponID]);
 			animator.SetInteger("attackType", weaponID);
@@ -230,11 +240,6 @@ public class Character : MonoBehaviour
 				plantScript.initiateHarvest(transform.position);
 			}
 		}
-	}
-
-	private void delayFinish()
-	{
-		delay = false;
 	}
 
 	private bool hasEnoughAmmunition()
