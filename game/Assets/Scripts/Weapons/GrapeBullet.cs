@@ -18,4 +18,10 @@ public class GrapeBullet : MonoBehaviour {
 		transform.LookAt(transform.position + d);
 	}
 
+	public void disappear()
+	{
+		//maybe particles?
+		Destroy (gameObject);
+	}
+
 }
