@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Character : MonoBehaviour 
 {
+	public static int lives;
+
 	public GameObject shockwave;
 	public GameObject weaponHand;
 
@@ -31,6 +33,8 @@ public class Character : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		lives = 10;
+
 		CC = transform.GetComponent<CharacterController>();
 		canAttack = true;
 		isAbleToMove = true;
@@ -47,7 +51,7 @@ public class Character : MonoBehaviour
 		GUIVisual.updateWeapon(0);
 		GUIVisual.updateAmmo(ammunition[weaponID]);
 
-		GUIVisual.updatePosition();
+
 	}
 
 	// Update is called once per frame
@@ -83,7 +87,7 @@ public class Character : MonoBehaviour
 		}
 
 		pickUps();
-
+		GUIVisual.updatePosition();
 		getInput();
 	}
 
@@ -250,6 +254,11 @@ public class Character : MonoBehaviour
 		}
 
 		return false;
+	}
+
+	public static void hurt()
+	{
+		lives--;
 	}
 
 	public void test()

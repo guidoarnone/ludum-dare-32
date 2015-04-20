@@ -7,35 +7,60 @@ public class Wave : MonoBehaviour {
 
 	public GameObject[] enemies;
 	public float spawnInterval;
-	private Queue<GameObject> enemyQueue;
+	private int currentEnemy;
 
 	// Use this for initialization
-	public void execute () {
-		enemyQueue = new Queue<GameObject> ();
+	public void execute () 
+	{
+		currentEnemy = 0;
 		startSendingEnemies();
 	}
 
 	private void startSendingEnemies()
 	{
-		foreach(GameObject g in enemies)
-		{
-			enemyQueue.Enqueue(g);
-		}
 		StartCoroutine(sendEnemy());
 	}
 
-	private IEnumerator sendEnemy() {
+	private IEnumerator sendEnemy() 
+	{
+		GameObject enemy = enemies[currentEnemy];
+		Instantiate (enemy, transform.position, Quaternion.identity);
 
-		GameObject enemy = (GameObject) enemyQueue.Dequeue ();
-		Instantiate (enemy, transform.parent.transform.position, Quaternion.identity);
+		currentEnemy++;
 
 		yield return new WaitForSeconds(spawnInterval);
 
-		if (enemyQueue.Count > 0) 
+		if (currentEnemy < enemies.Length) 
 		{
 			StartCoroutine(sendEnemy());
 		}
 
+		else
+		{
+			StartCoroutine(finishedSpawning());
+		}
+
+	}
+
+	private IEnumerator finishedSpawning()
+	{
+		yield return new WaitForSeconds(Time.deltaTime);
+
+		if (anyEnemiesAlive())
+		{
+			Debug.Log("check");
+			StartCoroutine(finishedSpawning());
+		}
+		else
+		{
+			Debug.Log("yes");
+			transform.parent.GetComponent<Spawner>().nextWave();
+		}
+	}
+
+	public bool anyEnemiesAlive()
+	{
+		return (GameObject.FindGameObjectsWithTag ("enemies").Length > 0);
 	}
 
 }

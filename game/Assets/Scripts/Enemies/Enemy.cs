@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
+	public float speed;
+
 	public GameObject body;
 
 	public GameObject vest;
@@ -54,7 +56,7 @@ public class Enemy : MonoBehaviour {
 	{
 		if (isAlive)
 		{
-			Vector3 moveVector = new Vector3(0, 0, -2 * Time.deltaTime);
+			Vector3 moveVector = new Vector3(0, 0, -speed * Time.deltaTime);
 			transform.LookAt(transform.position + moveVector);
 			transform.Translate(moveVector, Space.World);
 		}
@@ -71,6 +73,10 @@ public class Enemy : MonoBehaviour {
 				c.gameObject.GetComponent<GrapeBullet>().disappear();
 			}
 		}
+		else if (c.tag == "goal")
+		{
+			Character.hurt();
+		}
 
 		checkDamage();
 
@@ -84,7 +90,7 @@ public class Enemy : MonoBehaviour {
 	{
 		if (currentCheckpoint < checkpoints.Length)
 		{
-			if (healthPoints < checkpoints[currentCheckpoint])
+			if (healthPoints <= checkpoints[currentCheckpoint])
 			{
 				undress();
 				currentCheckpoint++;
@@ -98,6 +104,7 @@ public class Enemy : MonoBehaviour {
 		GameObject tempCloth = clothing[currentCheckpoint];
 		tempCloth.transform.SetParent(null);
 		tempCloth.AddComponent<Rigidbody>();
+		tempCloth.GetComponent<Rigidbody>().AddForce(Vector3.one * Random.Range(-500f, 500f));
 		tempCloth.AddComponent<AutoDestroy>();
 	}
 
@@ -118,7 +125,7 @@ public class Enemy : MonoBehaviour {
 		switch (tag) 
 		{
 		case "attack_coconut":
-			return 1000;
+			return 100;
 		case "attack_banana":
 			return 20;
 		case "attack_grape":
@@ -140,6 +147,11 @@ public class Enemy : MonoBehaviour {
 				return 2;
 		}
 		return -1;
+	}
+
+	public void goal()
+	{
+
 	}
 
 	public void death()

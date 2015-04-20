@@ -4,42 +4,38 @@ using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour {
 
+	public int lane;
 	public GameObject[] waves;
 	public float waveInterval;
 	private bool finishedWaves;
 	private int currentWave;
 
-	// Use this for initialization
-	void Start () {
-		finishedWaves = false;
-		currentWave = 0;
-		//startWaves();
-	}
-	
 	public void startWaves()
 	{
+		finishedWaves = false;
+		currentWave = 0;
+
 		if (currentWave < waves.Length) // checks for spawners with no waves 
 		{	
-			StartCoroutine (startWave ());
+			startWave();
 		}
 	}
-	
-	private IEnumerator startWave()
+
+	public void nextWave()
+	{
+		Invoke("startWave", waveInterval);
+	}
+
+	public void startWave()
 	{
 		waves[currentWave].GetComponent<Wave>().execute();
 		currentWave++;
-
-		yield return new WaitForSeconds(waveInterval);
 		
-		if (currentWave < waves.Length) 
+		if (!(currentWave < waves.Length)) 
 		{
-			StartCoroutine (startWave ());
-		}
-		else 
-		{
+			Debug.Log("no");
 			finishedWaves = true;
 		}
-		
 	}
 
 	public bool hasFinished()

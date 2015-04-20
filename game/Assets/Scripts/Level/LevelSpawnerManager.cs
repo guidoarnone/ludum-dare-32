@@ -3,10 +3,12 @@ using System.Collections;
 
 public class LevelSpawnerManager : MonoBehaviour {
 
+	public float delay;
 
 	public LevelSpawnerManager 	nextLevel;
 	public GameObject[] spawnerList;
-	
+	private bool finished; 
+
 	void Start()
 	{
 		if (name == "Level 1")
@@ -17,6 +19,8 @@ public class LevelSpawnerManager : MonoBehaviour {
 
 	public void startLevel()
 	{
+		finished = false;
+
 		foreach (GameObject G in spawnerList)
 		{
 			G.GetComponent<Spawner>().startWaves();
@@ -26,9 +30,11 @@ public class LevelSpawnerManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (spawnersFinished() && !anyEnemiesAlive()) 
+		if (spawnersFinished() && !anyEnemiesAlive() && !finished) 
 		{
-			Invoke("endLevel", 5f);
+			Invoke("endLevel", delay);
+			Destroy(gameObject, delay + 1f);
+			finished = true;
 		}
 	}
 
@@ -40,21 +46,19 @@ public class LevelSpawnerManager : MonoBehaviour {
 
 	public bool spawnersFinished()
 	{
+		bool Sfinished = true;
 
-		bool finished = true;
-
-		foreach(GameObject spawner in spawnerList)
+		for (int i = 0; i < spawnerList.Length; i++)
 		{
-			finished &= spawner.GetComponent<Spawner>().hasFinished();
+			Sfinished &= spawnerList[i].GetComponent<Spawner>().hasFinished();
 		}
 
-		return finished;
+		return Sfinished;
 		
 	}
 
 	public void endLevel() 
 	{
-		//TODO: level transition
 		nextLevel.GetComponent<LevelSpawnerManager>().startLevel();
 	}
 }

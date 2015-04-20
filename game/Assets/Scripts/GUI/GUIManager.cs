@@ -20,7 +20,7 @@ public class GUIManager : MonoBehaviour {
 
 	public void updatePosition()
 	{
-		transform.Translate(-Screen.width / 1000f * 2.5f / GUICamera.orthographicSize, Screen.height / 1000f * 2.25f / GUICamera.orthographicSize, 5);
+		transform.localPosition = new Vector3(-Screen.width / 1000f * 2.5f / GUICamera.orthographicSize, Screen.height / 1000f * 2.25f / GUICamera.orthographicSize, 5);
 	}
 
 	public void updateAmmo(int i)
