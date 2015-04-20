@@ -7,9 +7,11 @@ public class Spawner : MonoBehaviour {
 	public GameObject[] waves;
 	public float waveInterval;
 	private Queue<GameObject> waveQueue;
+	private bool finishedWaves;
 	
 	// Use this for initialization
 	public void Start () {
+		finishedWaves = false;
 		waveQueue = new Queue<GameObject> ();
 		startWaves();
 	}
@@ -20,19 +22,32 @@ public class Spawner : MonoBehaviour {
 		{
 			waveQueue.Enqueue(w);
 		}
-		StartCoroutine(startWave());
+		if (waveQueue.Count > 0) // checks for spawners with no waves 
+		{	
+			StartCoroutine (startWave ());
+		}
 	}
 	
-	private IEnumerator startWave() {
+	private IEnumerator startWave() 
+	{
 
 		waveQueue.Dequeue().GetComponent<Wave>().execute();
 
 		yield return new WaitForSeconds(waveInterval);
 		
-		if (waveQueue.Count > 0) 
+		if (waveQueue.Count > 0) {
+			StartCoroutine (startWave ());
+		}
+		else 
 		{
-			StartCoroutine(startWave());
+			finishedWaves = true;
 		}
 		
 	}
+
+	public bool hasFinished()
+	{
+		return finishedWaves;
+	}
+
 }
