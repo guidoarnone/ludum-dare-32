@@ -48,6 +48,8 @@ public class Character : MonoBehaviour
 		weaponID = 0;
 		GUIVisual.updateWeapon(0);
 		GUIVisual.updateAmmo(ammunition[weaponID]);
+
+		GUIVisual.updatePosition();
 	}
 
 	// Update is called once per frame
@@ -113,7 +115,7 @@ public class Character : MonoBehaviour
 	private void getInput()
 	{
 		//Attack detection
-		if (Input.GetMouseButtonDown(0) && canAttack && isAbleToMove && weaponID != 2)
+		if (Input.GetMouseButtonDown(0) && canAttack && isAbleToMove)
 		{
 				//If you have that type of ammunition
 				if (hasEnoughAmmunition())

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GUIManager : MonoBehaviour {
 
+	public Camera GUICamera;
+
 	public GameObject[] fruitModels;
 	public Material[] fruitMaterials;
 
@@ -15,6 +17,12 @@ public class GUIManager : MonoBehaviour {
 	public GameObject hundreds;
 
 	private Transform oldModel;
+
+	public void updatePosition()
+	{
+		float ratio = Screen.width/Screen.height;
+		transform.Translate(-Screen.width / 1000f * 2.5f / GUICamera.orthographicSize, Screen.height / 1000f * 2.25f / GUICamera.orthographicSize, 5);
+	}
 
 	public void updateAmmo(int i)
 	{
@@ -36,13 +44,15 @@ public class GUIManager : MonoBehaviour {
 			Destroy(oldModel.gameObject);
 		}
 
-		GameObject tempO = (GameObject)Instantiate(fruitModels[i], transform.position, Quaternion.identity);
+		GameObject tempO = (GameObject)Instantiate(fruitModels[i], rotator.transform.position, Quaternion.identity);
 
 		units.GetComponent<Renderer>().material = fruitMaterials[i];
 		tens.GetComponent<Renderer>().material = fruitMaterials[i];
 		hundreds.GetComponent<Renderer>().material = fruitMaterials[i];
 
 		tempO.transform.SetParent(rotator.transform);
+		tempO.transform.localPosition = Vector3.zero;
+
 		oldModel = tempO.transform;
 	}
 }

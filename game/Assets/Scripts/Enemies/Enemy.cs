@@ -4,7 +4,11 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 
 	public GameObject body;
+
 	public float healthPoints;
+	public float[] checkpoints;
+	public GameObject[] clothing;
+
 
 	Animator animator;
 	bool isAlive;
@@ -40,10 +44,18 @@ public class Enemy : MonoBehaviour {
 			}
 		}
 
+		checkDamage();
+
 		if(healthPoints <= 0f)
 		{
 			agonize(c);
 		}
+	}
+
+	private void checkDamage()
+	{
+
+
 	}
 
 	private void agonize(Collider c)
@@ -66,7 +78,7 @@ public class Enemy : MonoBehaviour {
 		case "attack_coconut":
 			return 1000;
 		case "attack_banana":
-			return 50;
+			return 20;
 		case "attack_grape":
 			return 20;
 		}
