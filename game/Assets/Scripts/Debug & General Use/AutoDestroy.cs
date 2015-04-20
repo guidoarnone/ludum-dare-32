@@ -8,6 +8,11 @@ public class AutoDestroy : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		if (time == 0f)
+		{
+			time = 5f;
+		}
+
 		Destroy(gameObject, time);
 	}
 }

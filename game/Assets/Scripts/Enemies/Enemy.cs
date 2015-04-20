@@ -5,10 +5,16 @@ public class Enemy : MonoBehaviour {
 
 	public GameObject body;
 
+	public GameObject vest;
+	public GameObject hat;
+
+	public GameObject vestReference;
+	public GameObject hatReference;
+
 	public float healthPoints;
 	public float[] checkpoints;
-	public GameObject[] clothing;
-
+	private GameObject[] clothing;
+	private int currentCheckpoint;
 
 	Animator animator;
 	bool isAlive;
@@ -16,11 +22,33 @@ public class Enemy : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		healthPoints = 100f;
+		currentCheckpoint = 0;
 		isAlive = true;
 		animator = GetComponent<Animator>();
+		clothing = new GameObject[checkpoints.Length];
+		instantiateClothing();
 	}
-	
+
+	private void instantiateClothing()
+	{
+		int clothingSize = 0;
+
+		if (vest != null)
+		{
+			GameObject tempCloth = (GameObject)Instantiate(vest, vestReference.transform.position, Quaternion.identity);
+			tempCloth.transform.SetParent(vestReference.transform);
+			clothing[clothingSize] = tempCloth;
+			clothingSize++;
+		}
+		if (hat != null)
+		{
+			GameObject tempCloth = (GameObject)Instantiate(hat, hatReference.transform.position, Quaternion.identity);
+			tempCloth.transform.SetParent(hatReference.transform);
+			clothing[clothingSize] = tempCloth;
+			clothingSize++;
+		}
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -54,8 +82,24 @@ public class Enemy : MonoBehaviour {
 
 	private void checkDamage()
 	{
+		if (currentCheckpoint < checkpoints.Length)
+		{
+			if (healthPoints < checkpoints[currentCheckpoint])
+			{
+				undress();
+				currentCheckpoint++;
+				checkDamage();
+			}
+		}
+	}
 
-
+	private void undress()
+	{
+		Debug.Log("preposterous!");
+		GameObject tempCloth = clothing[currentCheckpoint];
+		tempCloth.transform.SetParent(null);
+		tempCloth.AddComponent<Rigidbody>();
+		tempCloth.AddComponent<AutoDestroy>();
 	}
 
 	private void agonize(Collider c)
