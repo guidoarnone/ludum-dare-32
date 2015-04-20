@@ -8,6 +8,8 @@ public class Character : MonoBehaviour
 
 	public GUIManager GUIVisual;
 
+	public float gracePeriod;
+
 	public float harvestRadius;
 	public float pickUpRadius;
 	public float speed;
@@ -18,9 +20,11 @@ public class Character : MonoBehaviour
 	
 	private CharacterController CC;
 	private bool canAttack;
+	private bool canSwap;
+	private bool delay;
 	private int weaponID;
 	private int[] ammunition;
-	private bool isAbleToMove = true;
+	private bool isAbleToMove;
 
 	Vector3 move;
 
@@ -31,12 +35,17 @@ public class Character : MonoBehaviour
 	{
 		CC = transform.GetComponent<CharacterController>();
 		canAttack = true;
+		canSwap = true;
+		isAbleToMove = true;
+
 		animator = gameObject.GetComponent<Animator>();
 		ammunition = new int[maxWeapons];
 
 		//Test
 		ammunition[0] = 5;
-		ammunition [1] = 5;
+		ammunition [1] = 50;
+		ammunition [1] = 250;
+
 		weaponID = 0;
 		GUIVisual.updateWeapon(0);
 		GUIVisual.updateAmmo(ammunition[weaponID]);
@@ -45,11 +54,21 @@ public class Character : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if (!isAbleToMove)
+		Debug.Log(canAttack);
+
+		if (!isAbleToMove && !delay)
 		{
 			if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
 			{
 				isAbleToMove = true;
+				canAttack = true;
+			}
+		}
+
+		else if (!canAttack && !delay)
+		{
+			if (!animator.GetCurrentAnimatorStateInfo(1).IsTag("Attack"))
+			{
 				canAttack = true;
 			}
 		}
@@ -97,18 +116,20 @@ public class Character : MonoBehaviour
 	private void getInput()
 	{
 		//Attack detection
-		if (Input.GetMouseButtonDown(0) && canAttack == true)
+		if (Input.GetMouseButtonDown(0) && canAttack && isAbleToMove && canSwap)
 		{
 			//If you have that type of ammunition
 			if (hasEnoughAmmunition())
 			{
 				animator.SetTrigger("attack");
+				delay = true;
+				Invoke("delayFinish", gracePeriod);
 				canAttack = false;
 			}
 		}
 
 		//harvest
-		if (Input.GetKeyDown(KeyCode.Space) && canAttack == true)
+		if (Input.GetKeyDown(KeyCode.Space) && canAttack)
 		{
 			animator.SetTrigger("harvest");
 			canAttack = false;
@@ -134,6 +155,7 @@ public class Character : MonoBehaviour
 		{
 			GUIVisual.updateWeapon(weaponID);
 			GUIVisual.updateAmmo(ammunition[weaponID]);
+			animator.SetInteger("attackType", weaponID);
 		}
 	}
 
@@ -167,6 +189,7 @@ public class Character : MonoBehaviour
 		{
 			case(0):
 				projectile.GetComponent<CoconutBall>().setDirection(transform.forward);
+				
 				break;
 
 			case(1):
@@ -201,6 +224,11 @@ public class Character : MonoBehaviour
 				plantScript.initiateHarvest(transform.position);
 			}
 		}
+	}
+
+	private void delayFinish()
+	{
+		delay = false;
 	}
 
 	private bool hasEnoughAmmunition()

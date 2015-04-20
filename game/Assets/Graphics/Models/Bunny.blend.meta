@@ -106,6 +106,7 @@ ModelImporter:
     7400004: Jump
     7400006: Idle
     7400008: Attack_coconut
+    7400010: Attack_banana
     9500000: //RootNode
     13700000: Cone
   materials:
@@ -459,6 +460,116 @@ ModelImporter:
       takeName: Default Take
       firstFrame: 150
       lastFrame: 211
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bunny
+        weight: 1
+      - path: Bunny/Root
+        weight: 1
+      - path: Bunny/Root/Body
+        weight: 1
+      - path: Bunny/Root/Body/Head
+        weight: 1
+      - path: Bunny/Root/Body/Head/Eye_L
+        weight: 1
+      - path: Bunny/Root/Body/Head/Eye_R
+        weight: 1
+      - path: Bunny/Root/Body/Head/L_Ear_bot
+        weight: 1
+      - path: Bunny/Root/Body/Head/L_Ear_bot/L_Ear_mid
+        weight: 1
+      - path: Bunny/Root/Body/Head/L_Ear_bot/L_Ear_mid/L_Ear_top
+        weight: 1
+      - path: Bunny/Root/Body/Head/Mouth
+        weight: 1
+      - path: Bunny/Root/Body/Head/Mouth/Mouth_bottom
+        weight: 1
+      - path: Bunny/Root/Body/Head/Mouth/Mouth_Left
+        weight: 1
+      - path: Bunny/Root/Body/Head/Mouth/Mouth_Right
+        weight: 1
+      - path: Bunny/Root/Body/Head/R_Ear_bot
+        weight: 1
+      - path: Bunny/Root/Body/Head/R_Ear_bot/R_Ear_mid
+        weight: 1
+      - path: Bunny/Root/Body/Head/R_Ear_bot/R_Ear_mid/R_Ear_top
+        weight: 1
+      - path: Bunny/Root/Body/L_Arm_origin
+        weight: 1
+      - path: Bunny/Root/Body/L_Arm_origin/L_Arm_mid
+        weight: 1
+      - path: Bunny/Root/Body/L_Arm_origin/L_Arm_mid/L_Arm_end
+        weight: 1
+      - path: Bunny/Root/Body/L_Arm_origin/L_Arm_mid/L_Arm_end/L_Hand
+        weight: 1
+      - path: Bunny/Root/Body/L_Leg_top
+        weight: 1
+      - path: Bunny/Root/Body/L_Leg_top/L_Leg_bot
+        weight: 1
+      - path: Bunny/Root/Body/L_Leg_top/L_Leg_bot/L_Foot
+        weight: 1
+      - path: Bunny/Root/Body/R_Arm_origin
+        weight: 1
+      - path: Bunny/Root/Body/R_Arm_origin/R_Arm_mid
+        weight: 1
+      - path: Bunny/Root/Body/R_Arm_origin/R_Arm_mid/R_Arm_end
+        weight: 1
+      - path: Bunny/Root/Body/R_Arm_origin/R_Arm_mid/R_Arm_end/R_Hand
+        weight: 1
+      - path: Bunny/Root/Body/R_Leg_top
+        weight: 1
+      - path: Bunny/Root/Body/R_Leg_top/R_Leg_bot
+        weight: 1
+      - path: Bunny/Root/Body/R_Leg_top/R_Leg_bot/R_Foot
+        weight: 1
+      - path: Bunny/Root/L_Ear_IK
+        weight: 1
+      - path: Bunny/Root/L_Foot_IK
+        weight: 1
+      - path: Bunny/Root/L_Foot_UV
+        weight: 1
+      - path: Bunny/Root/L_Hand_IK
+        weight: 1
+      - path: Bunny/Root/L_Leg_UV
+        weight: 1
+      - path: Bunny/Root/R_Ear_IK
+        weight: 1
+      - path: Bunny/Root/R_Foot_IK
+        weight: 1
+      - path: Bunny/Root/R_Foot_UV
+        weight: 1
+      - path: Bunny/Root/R_Hand_IK
+        weight: 1
+      - path: Bunny/Root/R_Leg_UV
+        weight: 1
+      - path: Cone
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Attack_banana
+      takeName: Default Take
+      firstFrame: 212
+      lastFrame: 219
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
