@@ -48,12 +48,10 @@ public class Wave : MonoBehaviour {
 
 		if (anyEnemiesAlive())
 		{
-			Debug.Log("check");
 			StartCoroutine(finishedSpawning());
 		}
 		else
 		{
-			Debug.Log("yes");
 			transform.parent.GetComponent<Spawner>().nextWave();
 		}
 	}

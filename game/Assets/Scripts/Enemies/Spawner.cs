@@ -28,13 +28,14 @@ public class Spawner : MonoBehaviour {
 
 	public void startWave()
 	{
-		waves[currentWave].GetComponent<Wave>().execute();
-		currentWave++;
-		
 		if (!(currentWave < waves.Length)) 
 		{
-			Debug.Log("no");
 			finishedWaves = true;
+		}
+		else
+		{
+			waves[currentWave].GetComponent<Wave>().execute();
+			currentWave++;
 		}
 	}
 

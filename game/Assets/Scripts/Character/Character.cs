@@ -259,6 +259,11 @@ public class Character : MonoBehaviour
 	public static void hurt()
 	{
 		lives--;
+
+		if (lives <= 0)
+		{
+
+		}
 	}
 
 	public void test()

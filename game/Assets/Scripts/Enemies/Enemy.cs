@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour {
 
 	void OnTriggerEnter(Collider c)
 	{
-		if (c.tag.Substring(0,6) == "attack")
+		if (c.tag.Length > 6 && c.tag.Substring(0,6) == "attack")
 		{
 			healthPoints -= weaponDamage(c.tag);
 
@@ -72,13 +72,16 @@ public class Enemy : MonoBehaviour {
 			{
 				c.gameObject.GetComponent<GrapeBullet>().disappear();
 			}
-		}
-		else if (c.tag == "goal")
-		{
-			Character.hurt();
+
+			checkDamage();
 		}
 
-		checkDamage();
+		if (c.tag == "goal")
+		{
+			gameObject.layer = 2;
+			animator.SetTrigger("goal");
+			isAlive = false;
+		}
 
 		if(healthPoints <= 0f)
 		{
@@ -151,7 +154,8 @@ public class Enemy : MonoBehaviour {
 
 	public void goal()
 	{
-
+		Character.hurt();
+		Destroy(gameObject);
 	}
 
 	public void death()
