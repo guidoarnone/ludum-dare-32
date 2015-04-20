@@ -54,8 +54,6 @@ public class Character : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		Debug.Log(canAttack);
-
 		if (!isAbleToMove && !delay)
 		{
 			if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))

@@ -32,12 +32,15 @@ public class EnemyTest : MonoBehaviour {
 	{
 		if (c.tag.Substring(0,6) == "attack")
 		{
-			if(c.tag == "attack_grapes")
+			healthPoints -= weaponDamage(c.tag);
+
+			if(c.tag == "attack_grape")
 			{
 				c.gameObject.GetComponent<GrapeBullet>().disappear();
+				Debug.Log("die");
 			}
-			healthPoints -= weaponDamage(c.tag);
 		}
+
 		if(healthPoints <= 0f)
 		{
 			agonize(c);
@@ -61,8 +64,8 @@ public class EnemyTest : MonoBehaviour {
 			return 100;
 		case "attack_banana":
 			return 25;
-		case "attack_grapes":
-			return 10;
+		case "attack_grape":
+			return 25;
 		}
 		return 0;
 	}
