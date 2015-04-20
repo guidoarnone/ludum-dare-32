@@ -4,18 +4,32 @@ using System.Collections;
 public class LevelSpawnerManager : MonoBehaviour {
 
 
+	public LevelSpawnerManager 	nextLevel;
 	public GameObject[] spawnerList;
 	
+	void Start()
+	{
+		if (name == "Level 1")
+		{
+			startLevel();
+		}
+	}
+
+	public void startLevel()
+	{
+		foreach (GameObject G in spawnerList)
+		{
+			G.GetComponent<Spawner>().startWaves();
+		}
+	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		
 		if (spawnersFinished() && !anyEnemiesAlive()) 
 		{
-			endLevel();
+			Invoke("endLevel", 5f);
 		}
-
 	}
 
 
@@ -41,6 +55,6 @@ public class LevelSpawnerManager : MonoBehaviour {
 	public void endLevel() 
 	{
 		//TODO: level transition
-		Debug.Log ("finished");
+		nextLevel.GetComponent<LevelSpawnerManager>().startLevel();
 	}
 }

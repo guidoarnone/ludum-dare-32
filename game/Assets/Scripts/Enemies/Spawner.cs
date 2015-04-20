@@ -6,36 +6,33 @@ public class Spawner : MonoBehaviour {
 
 	public GameObject[] waves;
 	public float waveInterval;
-	private Queue<GameObject> waveQueue;
 	private bool finishedWaves;
-	
+	private int currentWave;
+
 	// Use this for initialization
-	public void Start () {
+	void Start () {
 		finishedWaves = false;
-		waveQueue = new Queue<GameObject> ();
-		startWaves();
+		currentWave = 0;
+		//startWaves();
 	}
 	
-	private void startWaves()
+	public void startWaves()
 	{
-		foreach(GameObject w in waves)
-		{
-			waveQueue.Enqueue(w);
-		}
-		if (waveQueue.Count > 0) // checks for spawners with no waves 
+		if (currentWave < waves.Length) // checks for spawners with no waves 
 		{	
 			StartCoroutine (startWave ());
 		}
 	}
 	
-	private IEnumerator startWave() 
+	private IEnumerator startWave()
 	{
-
-		waveQueue.Dequeue().GetComponent<Wave>().execute();
+		waves[currentWave].GetComponent<Wave>().execute();
+		currentWave++;
 
 		yield return new WaitForSeconds(waveInterval);
 		
-		if (waveQueue.Count > 0) {
+		if (currentWave < waves.Length) 
+		{
 			StartCoroutine (startWave ());
 		}
 		else 

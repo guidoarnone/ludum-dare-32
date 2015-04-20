@@ -20,7 +20,6 @@ public class Character : MonoBehaviour
 	
 	private CharacterController CC;
 	private bool canAttack;
-	private bool canSwap;
 	private int weaponID;
 	private int[] ammunition;
 	private bool isAbleToMove;
@@ -34,7 +33,6 @@ public class Character : MonoBehaviour
 	{
 		CC = transform.GetComponent<CharacterController>();
 		canAttack = true;
-		canSwap = true;
 		isAbleToMove = true;
 
 		animator = gameObject.GetComponent<Animator>();

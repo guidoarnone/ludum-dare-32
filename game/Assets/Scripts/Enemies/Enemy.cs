@@ -95,7 +95,6 @@ public class Enemy : MonoBehaviour {
 
 	private void undress()
 	{
-		Debug.Log("preposterous!");
 		GameObject tempCloth = clothing[currentCheckpoint];
 		tempCloth.transform.SetParent(null);
 		tempCloth.AddComponent<Rigidbody>();
@@ -112,7 +111,6 @@ public class Enemy : MonoBehaviour {
 		gameObject.layer = 2;
 		animator.SetTrigger("death");
 		animator.SetInteger("type", weaponId(c.tag));
-		Debug.Log(weaponId(c.tag));
 	}
 	          
 	private float weaponDamage(string tag)

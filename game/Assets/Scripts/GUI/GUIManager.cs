@@ -20,7 +20,6 @@ public class GUIManager : MonoBehaviour {
 
 	public void updatePosition()
 	{
-		float ratio = Screen.width/Screen.height;
 		transform.Translate(-Screen.width / 1000f * 2.5f / GUICamera.orthographicSize, Screen.height / 1000f * 2.25f / GUICamera.orthographicSize, 5);
 	}
 
