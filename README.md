@@ -1,9 +1,6 @@
 # Ludum Dare Jam 32
 Our attempt at the latest [Ludum Dare](http://ludumdare.com/compo/) Jam. 
 
-![](http://guidoarnone.github.io/ludum-dare-32/images/image.png)
-
-
 # Description
 
 This year's theme was "*an unconventional weapon*".
