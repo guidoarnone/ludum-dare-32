@@ -197,7 +197,7 @@ public class Character : MonoBehaviour
 				{
 					if (a == 2)
 					{
-						ammunition[a] += 5;
+						ammunition[a] += 10;
 					}
 					else
 					{

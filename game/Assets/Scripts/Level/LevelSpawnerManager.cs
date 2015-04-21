@@ -14,7 +14,7 @@ public class LevelSpawnerManager : MonoBehaviour {
 
 	void Start()
 	{
-		if (name == "Level 6")
+		if (name == "Level 1")
 		{
 			startLevel();
 		}

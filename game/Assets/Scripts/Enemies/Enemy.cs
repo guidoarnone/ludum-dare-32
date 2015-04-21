@@ -42,13 +42,22 @@ public class Enemy : MonoBehaviour {
 		{
 			GameObject tempCloth = (GameObject)Instantiate(vest, vestReference.transform.position, Quaternion.identity);
 			tempCloth.transform.SetParent(vestReference.transform);
+			tempCloth.transform.localScale = Vector3.one;
 			clothing[clothingSize] = tempCloth;
+
+			if (name.Substring(0, 4) == "Lord")
+			{
+				tempCloth.transform.localPosition = new Vector3(-1.1f, 0, 0);
+			}
+
 			clothingSize++;
 		}
+
 		if (hat != null)
 		{
 			GameObject tempCloth = (GameObject)Instantiate(hat, hatReference.transform.position, Quaternion.identity);
 			tempCloth.transform.SetParent(hatReference.transform);
+			tempCloth.transform.localScale = Vector3.one;
 			clothing[clothingSize] = tempCloth;
 			clothingSize++;
 		}
