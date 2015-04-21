@@ -3,7 +3,7 @@ Our attempt at the latest [Ludum Dare](http://ludumdare.com/compo/) Jam.
 
 # Description
 
-This year's theme was "*an unconventional weapon*".
+This time the theme was "*an unconventional weapon*".
 
 This game is about a **bunny** who has to fight against his evil brothers using **powerful fruits**.
 Made on **Unity3D** with **C#**.
