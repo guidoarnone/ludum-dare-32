@@ -10,5 +10,5 @@ Made on **Unity3D** with **C#**.
 
 # Playing the Game
 
-You can play the game online and/or download a compiled build [here](guidoarnone.github.io/ludum-dare-32).
+You can play the game online and/or download a compiled build [here](http://guidoarnone.github.io/ludum-dare-32).
 
