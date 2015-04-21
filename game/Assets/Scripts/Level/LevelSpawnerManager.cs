@@ -3,6 +3,9 @@ using System.Collections;
 
 public class LevelSpawnerManager : MonoBehaviour {
 
+	public GameObject character;
+
+	public float levelDelay;
 	public float delay;
 
 	public LevelSpawnerManager 	nextLevel;
@@ -11,7 +14,7 @@ public class LevelSpawnerManager : MonoBehaviour {
 
 	void Start()
 	{
-		if (name == "Level 1")
+		if (name == "Level 6")
 		{
 			startLevel();
 		}
@@ -19,8 +22,21 @@ public class LevelSpawnerManager : MonoBehaviour {
 
 	public void startLevel()
 	{
-		finished = false;
+		if (name != "Level 6")
+		{
+			Invoke("realStartLevel", levelDelay);
+		}
 
+		else
+		{
+			character.GetComponent<Character>().win();
+		}
+	}
+
+	private void realStartLevel()
+	{
+		finished = false;
+		
 		foreach (GameObject G in spawnerList)
 		{
 			G.GetComponent<Spawner>().startWaves();
@@ -59,6 +75,9 @@ public class LevelSpawnerManager : MonoBehaviour {
 
 	public void endLevel() 
 	{
-		nextLevel.GetComponent<LevelSpawnerManager>().startLevel();
+		if (name != "Level 6")
+		{
+			nextLevel.GetComponent<LevelSpawnerManager>().startLevel();
+		}
 	}
 }

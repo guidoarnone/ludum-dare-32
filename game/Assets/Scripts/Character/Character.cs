@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Character : MonoBehaviour 
 {
-	public static int lives;
+	public int lives;
 
 	public GameObject shockwave;
 	public GameObject weaponHand;
@@ -22,6 +22,7 @@ public class Character : MonoBehaviour
 	
 	private CharacterController CC;
 	private bool canAttack;
+	private bool lost;
 	private int weaponID;
 	private int[] ammunition;
 	private bool isAbleToMove;
@@ -33,7 +34,9 @@ public class Character : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		lives = 10;
+		Time.timeScale = 1;
+		lost = false;
+		lives = 99;
 
 		CC = transform.GetComponent<CharacterController>();
 		canAttack = true;
@@ -43,20 +46,24 @@ public class Character : MonoBehaviour
 		ammunition = new int[maxWeapons];
 
 		//Test
-		ammunition[0] = 5;
-		ammunition [1] = 50;
-		ammunition [2] = 250;
+		ammunition[0] = 1;
+		ammunition [1] = 5;
+		ammunition [2] = 50;
 
 		weaponID = 0;
 		GUIVisual.updateWeapon(0);
 		GUIVisual.updateAmmo(ammunition[weaponID]);
-
-
+		GUIVisual.updateLives(lives);
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
+		if (lost == true)
+		{
+			Time.timeScale = Mathf.Lerp(Time.timeScale, 0, 0.01f);
+		}
+
 		if (!isAbleToMove)
 		{
 			if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
@@ -116,6 +123,11 @@ public class Character : MonoBehaviour
 
 	private void getInput()
 	{
+		if (lost == true && Input.anyKeyDown && Time.timeScale < 0.05f)
+		{
+			Application.LoadLevel(0);
+		}
+
 		//Attack detection
 		if (Input.GetMouseButtonDown(0) && canAttack && isAbleToMove)
 		{
@@ -256,14 +268,22 @@ public class Character : MonoBehaviour
 		return false;
 	}
 
-	public static void hurt()
+	public void hurt(int damage)
 	{
-		lives--;
+		lives -= damage;
+		lives = Mathf.Clamp(lives, 0, 1000);
+		GUIVisual.updateLives(lives);
 
 		if (lives <= 0)
 		{
-
+			lost = true;
+			GUIVisual.losing();
 		}
+	}
+
+	public void win()
+	{
+		GUIVisual.winning();
 	}
 
 	public void test()

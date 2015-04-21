@@ -3,7 +3,10 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
+	public int damage;
 	public float speed;
+
+	public GameObject character;
 
 	public GameObject body;
 
@@ -128,7 +131,7 @@ public class Enemy : MonoBehaviour {
 		switch (tag) 
 		{
 		case "attack_coconut":
-			return 100;
+			return 200;
 		case "attack_banana":
 			return 20;
 		case "attack_grape":
@@ -154,7 +157,7 @@ public class Enemy : MonoBehaviour {
 
 	public void goal()
 	{
-		Character.hurt();
+		GameObject.FindGameObjectWithTag("Player").GetComponent<Character>().hurt(damage);
 		Destroy(gameObject);
 	}
 
