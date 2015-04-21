@@ -10,5 +10,5 @@ Made on **Unity3D** with **C#**.
 
 # Playing the Game
 
-We're still working on it, Jam finishes April 20. This will be updated as soon as we have a running build and/or online copy.
+You can play the game online and/or download a compiled build [here](guidoarnone.github.io/ludum-dare-32).
 
